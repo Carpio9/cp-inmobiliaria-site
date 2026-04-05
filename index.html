@@ -377,6 +377,11 @@
     }
     @media (min-width: 769px) { .hamburger { display: none; } }
 
+    /* ── Scroll offset: compensate for fixed nav ── */
+    #nosotros, #proyectos, #interiores, #portafolio, #contacto {
+      scroll-margin-top: 80px;
+    }
+
     /* ── Interior carousel (mobile only) ── */
     .interior-carousel {
       display: none;
@@ -527,7 +532,7 @@
           <p style="font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:300;
                     color:rgba(255,255,255,0.6);line-height:1.85;letter-spacing:0.02em;">
             Somos CP Inmobiliaria, una empresa fundada con la convicción de que
-            cada hogar debe ser una obra cuidada. Combinamos diseño contemporáneo,
+            cada hogar debe ser una obra que aporte a la ciudad. Combinamos diseño contemporáneo,
             materialidad de calidad y ubicaciones estratégicas para crear espacios
             que perduran en el tiempo.
           </p>
@@ -751,15 +756,97 @@
 
       <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:3px;" class="reveal" id="portfolio-grid">
 
+        <!-- 1 · La Merced 662 · 2023–2024 -->
         <div class="portfolio-card" style="height:220px;">
-          <img src="assets/images/portfolio/proyecto-01-victor-alzamora.jpg" alt="Edificio Víctor Alzamora" />
+          <img src="assets/images/portfolio/proyecto-06-sergio-bernales-ii.jpg" alt="La Merced 662" />
           <div class="portfolio-overlay"></div>
           <div class="portfolio-info">
-            <div class="portfolio-year">Surquillo · 1999–2000</div>
-            <div class="portfolio-title">Ed. Víctor Alzamora</div>
+            <div class="portfolio-year">Santiago de Surco · 2023–2024</div>
+            <div class="portfolio-title">La Merced 662</div>
           </div>
         </div>
 
+        <!-- 2 · Santa Leonor · 2019–2020 -->
+        <div class="portfolio-card" style="height:220px;">
+          <img src="assets/images/portfolio/proyecto-09-2-de-mayo.jpg" alt="Santa Leonor" />
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-info">
+            <div class="portfolio-year">Chorrillos · 2019–2020</div>
+            <div class="portfolio-title">Santa Leonor</div>
+          </div>
+        </div>
+
+        <!-- 3 · Ed. 2 de Mayo 900 · 2016–2017 -->
+        <div class="portfolio-card" style="height:220px;">
+          <img src="assets/images/portfolio/proyecto-03-juan-castilla.jpg" alt="Edificio 2 de Mayo 900" />
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-info">
+            <div class="portfolio-year">Miraflores · 2016–2017</div>
+            <div class="portfolio-title">Ed. 2 de Mayo 900</div>
+          </div>
+        </div>
+
+        <!-- 4 · Residencial Canopus · 2014–2015 -->
+        <div class="portfolio-card" style="height:220px;">
+          <img src="assets/images/portfolio/proyecto-01-victor-alzamora.jpg" alt="Residencial Canopus" />
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-info">
+            <div class="portfolio-year">Santiago de Surco · 2014–2015</div>
+            <div class="portfolio-title">Residencial Canopus</div>
+          </div>
+        </div>
+
+        <!-- 5 · Res. Sergio Bernales III · 2008 -->
+        <div class="portfolio-card" style="height:220px;">
+          <img src="assets/images/portfolio/proyecto-05-dante.jpg" alt="Residencial Sergio Bernales III" />
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-info">
+            <div class="portfolio-year">Surquillo · 2008</div>
+            <div class="portfolio-title">Res. Sergio Bernales III</div>
+          </div>
+        </div>
+
+        <!-- 6 · Res. Sergio Bernales II · 2007 -->
+        <div class="portfolio-card" style="height:220px;">
+          <img src="assets/images/portfolio/proyecto-08-canopus.jpg" alt="Residencial Sergio Bernales II" />
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-info">
+            <div class="portfolio-year">Surquillo · 2007</div>
+            <div class="portfolio-title">Res. Sergio Bernales II</div>
+          </div>
+        </div>
+
+        <!-- 7 · Edificio Dante · 2006 -->
+        <div class="portfolio-card" style="height:220px;">
+          <img src="assets/images/portfolio/proyecto-07-sergio-bernales-iii.jpg" alt="Edificio Dante" />
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-info">
+            <div class="portfolio-year">Surquillo · 2006</div>
+            <div class="portfolio-title">Edificio Dante</div>
+          </div>
+        </div>
+
+        <!-- 8 · Res. Sergio Bernales I · 2005 -->
+        <div class="portfolio-card" style="height:220px;">
+          <img src="assets/images/portfolio/proyecto-10-santa-leonor.jpg" alt="Residencial Sergio Bernales I" />
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-info">
+            <div class="portfolio-year">Surquillo · 2005</div>
+            <div class="portfolio-title">Res. Sergio Bernales I</div>
+          </div>
+        </div>
+
+        <!-- 9 · Ed. Juan Castilla · 2003 -->
+        <div class="portfolio-card" style="height:220px;">
+          <img src="assets/images/portfolio/proyecto-04-sergio-bernales-i.jpg" alt="Edificio Juan Castilla" />
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-info">
+            <div class="portfolio-year">Santiago de Surco · 2003</div>
+            <div class="portfolio-title">Ed. Juan Castilla</div>
+          </div>
+        </div>
+
+        <!-- 10 · Ed. Julian Sandoval · 2002 -->
         <div class="portfolio-card" style="height:220px;">
           <img src="assets/images/portfolio/proyecto-02-julian-sandoval.jpg" alt="Edificio Julian Sandoval" />
           <div class="portfolio-overlay"></div>
@@ -769,84 +856,13 @@
           </div>
         </div>
 
+        <!-- 11 · Ed. Víctor Alzamora · 1999–2000 -->
         <div class="portfolio-card" style="height:220px;">
-          <img src="assets/images/portfolio/proyecto-03-juan-castilla.jpg" alt="Edificio Juan Castilla" />
+          <img src="assets/images/portfolio/proyecto-11-la-merced.jpg" alt="Edificio Víctor Alzamora" />
           <div class="portfolio-overlay"></div>
           <div class="portfolio-info">
-            <div class="portfolio-year">Santiago de Surco · 2003</div>
-            <div class="portfolio-title">Ed. Juan Castilla</div>
-          </div>
-        </div>
-
-        <div class="portfolio-card" style="height:220px;">
-          <img src="assets/images/portfolio/proyecto-04-sergio-bernales-i.jpg" alt="Residencial Sergio Bernales I" />
-          <div class="portfolio-overlay"></div>
-          <div class="portfolio-info">
-            <div class="portfolio-year">Surquillo · 2005</div>
-            <div class="portfolio-title">Res. Sergio Bernales I</div>
-          </div>
-        </div>
-
-        <div class="portfolio-card" style="height:220px;">
-          <img src="assets/images/portfolio/proyecto-05-dante.jpg" alt="Edificio Dante" />
-          <div class="portfolio-overlay"></div>
-          <div class="portfolio-info">
-            <div class="portfolio-year">Surquillo · 2006</div>
-            <div class="portfolio-title">Edificio Dante</div>
-          </div>
-        </div>
-
-        <div class="portfolio-card" style="height:220px;">
-          <img src="assets/images/portfolio/proyecto-06-sergio-bernales-ii.jpg" alt="Residencial Sergio Bernales II" />
-          <div class="portfolio-overlay"></div>
-          <div class="portfolio-info">
-            <div class="portfolio-year">Surquillo · 2007</div>
-            <div class="portfolio-title">Res. Sergio Bernales II</div>
-          </div>
-        </div>
-
-        <div class="portfolio-card" style="height:220px;">
-          <img src="assets/images/portfolio/proyecto-07-sergio-bernales-iii.jpg" alt="Residencial Sergio Bernales III" />
-          <div class="portfolio-overlay"></div>
-          <div class="portfolio-info">
-            <div class="portfolio-year">Surquillo</div>
-            <div class="portfolio-title">Res. Sergio Bernales III</div>
-          </div>
-        </div>
-
-        <div class="portfolio-card" style="height:220px;">
-          <img src="assets/images/portfolio/proyecto-08-canopus.jpg" alt="Proyecto Multifamiliar Canopus" />
-          <div class="portfolio-overlay"></div>
-          <div class="portfolio-info">
-            <div class="portfolio-year">Santiago de Surco · 2014–2015</div>
-            <div class="portfolio-title">Residencial Canopus</div>
-          </div>
-        </div>
-
-        <div class="portfolio-card" style="height:220px;">
-          <img src="assets/images/portfolio/proyecto-09-2-de-mayo.jpg" alt="Edificio 2 de Mayo 900" />
-          <div class="portfolio-overlay"></div>
-          <div class="portfolio-info">
-            <div class="portfolio-year">Miraflores · 2016–2017</div>
-            <div class="portfolio-title">Ed. 2 de Mayo 900</div>
-          </div>
-        </div>
-
-        <div class="portfolio-card" style="height:220px;">
-          <img src="assets/images/portfolio/proyecto-10-santa-leonor.jpg" alt="Santa Leonor" />
-          <div class="portfolio-overlay"></div>
-          <div class="portfolio-info">
-            <div class="portfolio-year">Chorrillos · 2019–2020</div>
-            <div class="portfolio-title">Santa Leonor</div>
-          </div>
-        </div>
-
-        <div class="portfolio-card" style="height:220px;">
-          <img src="assets/images/portfolio/proyecto-11-la-merced.jpg" alt="La Merced 662" />
-          <div class="portfolio-overlay"></div>
-          <div class="portfolio-info">
-            <div class="portfolio-year">Santiago de Surco · 2023–2024</div>
-            <div class="portfolio-title">La Merced 662</div>
+            <div class="portfolio-year">Surquillo · 1999–2000</div>
+            <div class="portfolio-title">Ed. Víctor Alzamora</div>
           </div>
         </div>
 
