@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Libro de Reclamaciones — CP Inmobiliaria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #0a0b0c;
+      color: rgba(255,255,255,0.75);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #3a3d42; border-radius: 2px; }
+
+    header {
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header img { height: 64px; width: auto; opacity: 0.9; }
+    header a.back-link {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    header a.back-link:hover { color: rgba(255,255,255,0.8); }
+
+    main {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 5rem 2rem 6rem;
+    }
+
+    .page-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 1.25rem;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .intro-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.8;
+      margin-bottom: 3rem;
+    }
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+      margin-bottom: 3rem;
+    }
+
+    /* ── Section headings ── */
+    .section-num {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 1.75rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Form block ── */
+    .form-section {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Labels ── */
+    label.field-label {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── Inputs ── */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    textarea,
+    select {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding: 0.65rem 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.8);
+      outline: none;
+      transition: border-color 0.3s ease;
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: 0;
+    }
+    input[type="text"]::placeholder,
+    input[type="email"]::placeholder,
+    input[type="tel"]::placeholder,
+    textarea::placeholder { color: rgba(255,255,255,0.2); }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    input[type="date"]:focus,
+    textarea:focus,
+    select:focus { border-bottom-color: rgba(255,255,255,0.5); }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(0.4);
+      cursor: pointer;
+    }
+
+    select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.3)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+      padding-right: 1.5rem;
+    }
+    select option { background: #212327; color: #fff; }
+
+    textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+    /* ── Grid ── */
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 2.5rem;
+    }
+    .field-group { margin-bottom: 2rem; }
+
+    /* ── Checkboxes ── */
+    .checkbox-group {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 0.25rem;
+    }
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      cursor: pointer;
+    }
+    input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: transparent;
+      cursor: pointer;
+      accent-color: #fff;
+      flex-shrink: 0;
+    }
+
+    /* ── File upload ── */
+    .file-upload-area {
+      border: 1px dashed rgba(255,255,255,0.15);
+      padding: 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+    .file-upload-area:hover { border-color: rgba(255,255,255,0.35); }
+    .file-upload-area input[type="file"] { display: none; }
+    .file-upload-area .upload-icon {
+      font-size: 1.4rem;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 0.5rem;
+    }
+    .file-upload-area p {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.1em;
+      margin: 0;
+    }
+    #file-name {
+      margin-top: 0.5rem;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.45);
+      font-style: italic;
+    }
+
+    /* ── Info block ── */
+    .info-block {
+      background: rgba(255,255,255,0.03);
+      border-left: 2px solid rgba(255,255,255,0.1);
+      padding: 1.25rem 1.5rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.7;
+    }
+
+    /* ── Legal note ── */
+    .legal-note {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.3);
+      line-height: 1.7;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── Submit button ── */
+    .submit-btn {
+      width: 100%;
+      background: #fff;
+      color: #000;
+      border: none;
+      padding: 1.1rem 2rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      margin-top: 2rem;
+    }
+    .submit-btn:hover { background: rgba(255,255,255,0.88); transform: translateY(-1px); }
+    .submit-btn:active { transform: translateY(0); }
+
+    /* ── Footer links ── */
+    .footer-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.6); }
+
+    /* ── Success message ── */
+    #form-success {
+      display: none;
+      margin-top: 2rem;
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+    }
+    #form-success p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.03em;
+      margin: 0;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    footer p {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.2);
+      margin: 0;
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 1.5rem; }
+      main { padding: 3rem 1.5rem 5rem; }
+      .field-grid { grid-template-columns: 1fr; }
+      footer { padding: 1.5rem; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html">
+      <img src="assets/logos/logo-blanco.png" alt="CP Inmobiliaria" />
+    </a>
+    <a href="index.html" class="back-link">← Volver al sitio</a>
+  </header>
+
+  <main>
+    <div class="page-label">Atención al cliente</div>
+    <h1>Libro de <em style="font-style:italic;">Reclamaciones</em></h1>
+    <p class="intro-text">
+      Conforme a lo establecido en el Código de Protección y Defensa del Consumidor, esta institución cuenta con un Libro de Reclamaciones a su disposición.
+    </p>
+    <div class="divider"></div>
+
+    <form id="reclamacion-form" onsubmit="handleReclamacion(event)">
+
+      <!-- SECCIÓN 1 -->
+      <div class="form-section">
+        <div class="section-num">Sección 1</div>
+        <div class="section-title">Identificación del Consumidor reclamante</div>
+
+        <div class="field-grid">
+          <div class="field-group">
+            <label class="field-label" for="nombres">Nombres *</label>
+            <input id="nombres" type="text" placeholder="Nombres" required />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="apellidos">Apellidos *</label>
+            <input id="apellidos" type="text" placeholder="Apellidos" required />
+          </div>
+        </div>
+
+        <div class="field-grid">
+          <div class="field-group">
+            <label class="field-label" for="telefono">Teléfono / Celular *</label>
+            <input id="telefono" type="tel" placeholder="+51 9XX XXX XXX" required />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="email">Email *</label>
+            <input id="email" type="email" placeholder="correo@ejemplo.com" required />
+          </div>
+        </div>
+
+        <div class="field-grid">
+          <div class="field-group">
+            <label class="field-label" for="tipo-doc">Tipo de documento *</label>
+            <select id="tipo-doc" required>
+              <option value="" disabled selected></option>
+              <option value="dni">DNI</option>
+              <option value="ce">Carné de Extranjería</option>
+              <option value="pasaporte">Pasaporte</option>
+              <option value="ruc">RUC</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="num-doc">Número de documento *</label>
+            <input id="num-doc" type="text" placeholder="Número" required />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="direccion">Dirección (Departamento, provincia, distrito) *</label>
+          <input id="direccion" type="text" placeholder="Dirección completa" required />
+        </div>
+      </div>
+
+      <!-- SECCIÓN 2 -->
+      <div class="form-section">
+        <div class="section-num">Sección 2</div>
+        <div class="section-title">Identificación del Bien Contratado</div>
+
+        <div class="field-group">
+          <label class="field-label" for="proyecto">Seleccione el proyecto *</label>
+          <select id="proyecto" required>
+            <option value="" disabled selected></option>
+            <option value="garcia-bedoya-172">García Bedoya 172</option>
+            <option value="castilla">Proyecto Castilla</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Tipo de bien *</label>
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" name="tipo-bien" value="producto" /> Producto
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="tipo-bien" value="servicio" /> Servicio
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 3 -->
+      <div class="form-section">
+        <div class="section-num">Sección 3</div>
+        <div class="section-title">Detalle de la Reclamación y pedido del consumidor</div>
+
+        <div class="field-grid">
+          <div class="field-group">
+            <label class="field-label" for="fecha">Fecha *</label>
+            <input id="fecha" type="date" required />
+          </div>
+          <div class="field-group" style="display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:2rem;">
+            <label class="field-label">Tipo de reclamación *</label>
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" name="tipo-rec" value="reclamo" /> Reclamo
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="tipo-rec" value="queja" /> Queja
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="detalle">Detalle *</label>
+          <textarea id="detalle" rows="4" placeholder="Describa el motivo de su reclamación o queja" required></textarea>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="pedido">Pedido *</label>
+          <textarea id="pedido" rows="3" placeholder="Indique qué solución solicita" required></textarea>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Seleccionar archivo (opcional)</label>
+          <div class="file-upload-area" onclick="document.getElementById('archivo').click()">
+            <input type="file" id="archivo" accept=".pdf,.jpg,.jpeg,.png" onchange="showFileName(this)" />
+            <div class="upload-icon">↑</div>
+            <p>Subir un archivo</p>
+            <p id="file-name"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 4 -->
+      <div class="form-section">
+        <div class="section-num">Sección 4</div>
+        <div class="section-title">Observaciones y acciones adoptadas por el Proveedor</div>
+        <div class="info-block">
+          Al ser un reclamo virtual, su caso será derivado al área de atención al cliente, a fin de dar respuesta dentro del plazo legalmente establecido.*
+        </div>
+      </div>
+
+      <!-- SECCIÓN 5 -->
+      <div class="form-section">
+        <div class="section-num">Sección 5</div>
+        <div class="section-title">Autorizo notificación del resultado del reclamo al e-mail consignado</div>
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" name="autorizo" value="si" /> Sí
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="autorizo" value="no" /> No
+          </label>
+        </div>
+      </div>
+
+      <!-- FOOTER LEGAL -->
+      <div class="form-section" style="border-top:1px solid rgba(255,255,255,0.07);padding-top:2.5rem;">
+        <p class="legal-note" style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:400;color:rgba(255,255,255,0.55);letter-spacing:0.02em;margin-bottom:1.5rem;">
+          Todos los campos son obligatorios (*)
+        </p>
+        <p class="legal-note">
+          *La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo.
+        </p>
+        <p class="legal-note">
+          *El proveedor deberá dar respuesta al reclamo en un plazo no mayor a treinta (30) días calendario, pudiendo ampliar el plazo hasta por (30) días más, previa comunicación al consumidor.
+        </p>
+
+        <div class="field-group" style="margin-top:1.75rem;">
+          <label class="checkbox-label" style="align-items:flex-start;gap:0.75rem;">
+            <input type="checkbox" id="acepta-terminos" required style="margin-top:3px;" />
+            <span>Acepto las Políticas de privacidad y Términos y condiciones de CP Inmobiliaria</span>
+          </label>
+        </div>
+        <div class="field-group">
+          <label class="checkbox-label" style="align-items:flex-start;gap:0.75rem;">
+            <input type="checkbox" id="acepta-marketing" />
+            <span>Autorizo a CP Inmobiliaria para que realice las actividades de prospección comercial y marketing descritas en las Políticas de privacidad</span>
+          </label>
+        </div>
+
+        <button type="submit" class="submit-btn">Enviar</button>
+
+        <div id="form-success">
+          <p>Su reclamación ha sido recibida. Nos comunicaremos con usted dentro del plazo establecido.</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="terminos.html" target="_blank" rel="noopener noreferrer">Términos y condiciones</a>
+          <span style="color:rgba(255,255,255,0.15);font-size:0.6rem;">|</span>
+          <a href="terminos.html#privacidad" target="_blank" rel="noopener noreferrer">Política de privacidad</a>
+        </div>
+      </div>
+
+    </form>
+  </main>
+
+  <footer>
+    <p>© 2025 CP Inmobiliaria · CP Constructora e Inmobiliaria S.A.C. · RUC 20605036814</p>
+    <p>Lima, Perú</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    emailjs.init('BJLg1uYEbBkpfFwuF');
+
+    function showFileName(input) {
+      const nameEl = document.getElementById('file-name');
+      nameEl.textContent = input.files[0] ? input.files[0].name : '';
+    }
+
+    function handleReclamacion(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.submit-btn');
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+
+      const checked = (name) => {
+        const els = document.querySelectorAll(`input[name="${name}"]:checked`);
+        return Array.from(els).map(el => el.value).join(', ') || '—';
+      };
+
+      const params = {
+        nombres:   document.getElementById('nombres').value,
+        apellidos: document.getElementById('apellidos').value,
+        email:     document.getElementById('email').value,
+        telefono:  document.getElementById('telefono').value,
+        tipo_doc:  document.getElementById('tipo-doc').value,
+        num_doc:   document.getElementById('num-doc').value,
+        direccion: document.getElementById('direccion').value,
+        proyecto:  document.getElementById('proyecto').value,
+        tipo_bien: checked('tipo-bien'),
+        fecha:     document.getElementById('fecha').value,
+        tipo_rec:  checked('tipo-rec'),
+        detalle:   document.getElementById('detalle').value,
+        pedido:    document.getElementById('pedido').value,
+        autorizo:  checked('autorizo'),
+      };
+
+      emailjs.send('service_azxbw4v', 'template_usosl3r', params)
+        .then(() => {
+          document.getElementById('reclamacion-form').style.display = 'none';
+          document.getElementById('form-success').style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        })
+        .catch(() => {
+          btn.textContent = 'Error al enviar. Inténtalo de nuevo.';
+          btn.disabled = false;
+        });
+    }
+  </script>
+
+</body>
+</html>
