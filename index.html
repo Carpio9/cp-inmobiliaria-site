@@ -386,16 +386,15 @@
     }
     .carousel-slide {
       min-width: 100%;
-      height: 78vw;
-      max-height: 420px;
+      aspect-ratio: 4/3;
       position: relative;
       overflow: hidden;
       flex-shrink: 0;
+      background: #0a0b0c;
     }
     .carousel-slide img {
       width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center;
+      object-fit: contain;
       display: block;
     }
     .carousel-slide .gallery-overlay { position: absolute; inset: 0; }
