@@ -378,31 +378,39 @@
     @media (min-width: 769px) { .hamburger { display: none; } }
 
     /* ── Interior carousel (mobile only) ── */
-    .interior-carousel { display: none; position: relative; overflow: hidden; touch-action: pan-y; }
+    .interior-carousel {
+      display: none;
+      position: relative;
+      overflow: hidden;
+      touch-action: pan-y;
+      margin-left: -1.5rem;
+      margin-right: -1.5rem;
+    }
     .carousel-track {
       display: flex;
       transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       will-change: transform;
     }
     .carousel-slide {
-      min-width: 100%;
-      aspect-ratio: 4/3;
+      flex: 0 0 100vw;
+      width: 100vw;
+      height: 75vw;
       position: relative;
-      overflow: hidden;
-      flex-shrink: 0;
       background: #0a0b0c;
     }
     .carousel-slide img {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       display: block;
     }
-    .carousel-slide .gallery-overlay { position: absolute; inset: 0; }
     .carousel-dots {
       display: flex;
       justify-content: center;
       gap: 6px;
       margin-top: 1rem;
+      margin-left: 1.5rem;
+      margin-right: 1.5rem;
     }
     .carousel-dot {
       width: 5px; height: 5px;
@@ -1083,15 +1091,20 @@
       const total  = track.children.length;
       let current  = 0;
 
+      function slideWidth() { return window.innerWidth; }
+
       function goTo(n) {
         current = (n + total) % total;
-        track.style.transform = `translateX(-${current * 100}%)`;
+        track.style.transform = `translateX(-${current * slideWidth()}px)`;
         dots.forEach((d, i) => d.classList.toggle('active', i === current));
       }
 
       prev.addEventListener('click', () => goTo(current - 1));
       next.addEventListener('click', () => goTo(current + 1));
       dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+
+      // Recalculate on resize
+      window.addEventListener('resize', () => goTo(current), { passive: true });
 
       // Touch swipe
       let startX = 0;
