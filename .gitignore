@@ -1,0 +1,15 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Large files — host these on Google Drive / Dropbox and update href links in index.html
+# Bedoya brochure: 33MB
+assets/brochures/bedoya-brochure.pdf
+
+# Castilla brochure: 40MB
+assets/brochures/castilla-brochure.pdf
+
+# Source / working files — not needed for the deployed site
+*.docx
+*.psd
+*.ai
