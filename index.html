@@ -15,10 +15,9 @@
   <meta name="ICBM" content="-12.0464, -77.0428" />
 
   <!-- ═══════════ TRACKING · Meta Pixel + GA4 ═══════════ -->
-  <!-- TODO: reemplazar los IDs placeholder por los reales antes de confiar en los datos.
-       Nada se registra correctamente hasta que se cambien PIXEL_ID y G-XXXXXXXXXX. -->
+  <!-- Meta Pixel (1101683876145502) y GA4 (G-HJHY8JMN0D) configurados con IDs reales. -->
 
-  <!-- Meta Pixel · TODO: PIXEL_ID → Events Manager → Orígenes de datos → tu pixel -->
+  <!-- Meta Pixel · CP Inmobiliaria Web · Events Manager (Conjuntos de datos) -->
   <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -28,20 +27,20 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', 'PIXEL_ID');   /* TODO: ID real del Meta Pixel */
+    fbq('init', '1101683876145502');   /* Meta Pixel: CP Inmobiliaria Web */
     fbq('track', 'PageView');
   </script>
   <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=PIXEL_ID&ev=PageView&noscript=1" alt="" /></noscript>
+    src="https://www.facebook.com/tr?id=1101683876145502&ev=PageView&noscript=1" alt="" /></noscript>
   <!-- End Meta Pixel -->
 
-  <!-- Google Analytics 4 · TODO: G-XXXXXXXXXX → GA4 → Administrar → Flujos de datos → tu flujo web -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <!-- Google Analytics 4 · CP Inmobiliaria Web · stream cpinmobiliaria.com -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HJHY8JMN0D"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');   /* TODO: Measurement ID real de GA4 */
+    gtag('config', 'G-HJHY8JMN0D');   /* GA4: CP Inmobiliaria Web */
   </script>
   <!-- End GA4 -->
   <!-- ═══════════ /TRACKING ═══════════ -->
