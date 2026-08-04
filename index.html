@@ -1529,6 +1529,9 @@
         mensaje:  'Solicitud de acceso a preventa Castilla 710',
       };
 
+      // Open Castilla brochure immediately on submit
+      window.open('https://drive.google.com/file/d/1Xy8GKLZfxLbX6A0IcxCQ3tInlxYb3Rl7/view', '_blank');
+
       emailjs.send('service_azxbw4v', 'template_x5qubcj', params)
         .then(() => {
           document.getElementById('preventa-form-wrap').style.display = 'none';
@@ -1582,7 +1585,7 @@
       document.getElementById('bd-wa-link').href = 'https://wa.me/51922511584?text=' + waText;
 
       // Open brochure immediately (avoids popup blocking — happens in submit handler which is user-gesture context)
-      window.open('https://drive.google.com/uc?export=download&id=10ats7_pujGvvDMG4msLY2XvnSVytf9_4', '_blank');
+      window.open('https://drive.google.com/file/d/1AfC8lADIzmgzNY6_2B_RZcwYY3uarGwH/view', '_blank');
 
       // Send lead data via emailjs
       emailjs.send('service_azxbw4v', 'template_x5qubcj', params)
