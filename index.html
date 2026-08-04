@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CP Inmobiliaria | Departamentos en Preventa Miraflores y Surco — Lima, Perú</title>
-  <meta name="description" content="CP Inmobiliaria: desarrolladora boutique en Lima con 25 años de experiencia. Departamentos en preventa en Miraflores (García Bedoya 172) y Surco (Castilla 710). 2 y 3 dormitorios desde 56m²." />
-  <meta name="keywords" content="departamentos en preventa Lima, proyectos inmobiliarios Miraflores, departamentos Surco, inmobiliaria boutique Lima, departamentos en venta Miraflores, preventa departamentos Lima 2026, García Bedoya Miraflores, Castilla Surco departamentos, CP Inmobiliaria" />
+  <meta name="description" content="CP Inmobiliaria: desarrolladora boutique en Lima con 25 años de experiencia. Departamentos en preventa e inicio de obra en Miraflores (García Bedoya 172) y Surco (Castilla 710). 2 y 3 dormitorios desde 56m²." />
+  <meta name="keywords" content="departamentos en preventa Lima, proyectos inmobiliarios Miraflores, departamentos Surco, inmobiliaria boutique Lima, departamentos en venta Miraflores, preventa departamentos Lima 2026, García Bedoya Miraflores, García Bedoya 172 inicio de obra, departamentos inicio de obra Miraflores, Castilla Surco departamentos, CP Inmobiliaria" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="author" content="CP Inmobiliaria" />
   <meta name="theme-color" content="#000000" />
@@ -13,6 +13,39 @@
   <meta name="geo.placename" content="Lima, Perú" />
   <meta name="geo.position" content="-12.0464;-77.0428" />
   <meta name="ICBM" content="-12.0464, -77.0428" />
+
+  <!-- ═══════════ TRACKING · Meta Pixel + GA4 ═══════════ -->
+  <!-- TODO: reemplazar los IDs placeholder por los reales antes de confiar en los datos.
+       Nada se registra correctamente hasta que se cambien PIXEL_ID y G-XXXXXXXXXX. -->
+
+  <!-- Meta Pixel · TODO: PIXEL_ID → Events Manager → Orígenes de datos → tu pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'PIXEL_ID');   /* TODO: ID real del Meta Pixel */
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=PIXEL_ID&ev=PageView&noscript=1" alt="" /></noscript>
+  <!-- End Meta Pixel -->
+
+  <!-- Google Analytics 4 · TODO: G-XXXXXXXXXX → GA4 → Administrar → Flujos de datos → tu flujo web -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');   /* TODO: Measurement ID real de GA4 */
+  </script>
+  <!-- End GA4 -->
+  <!-- ═══════════ /TRACKING ═══════════ -->
+
   <!-- Canonical & Hreflang -->
   <link rel="canonical" href="https://www.cpinmobiliaria.com/" />
   <link rel="alternate" hreflang="es-PE" href="https://www.cpinmobiliaria.com/" />
@@ -495,7 +528,7 @@
       "@type": "RealEstateListing",
       "@id": "https://www.cpinmobiliaria.com/#listing-bedoya",
       "name": "García Bedoya 172 — Departamentos en Preventa Miraflores",
-      "description": "Proyecto residencial boutique en La Aurora, Miraflores, Lima. 8 departamentos de 2 y 3 dormitorios con estudio, desde 118m². En preventa. Desarrollado por CP Inmobiliaria.",
+      "description": "Proyecto residencial boutique en La Aurora, Miraflores, Lima. 8 departamentos de 2 y 3 dormitorios con estudio, desde 118m². En preventa, con obra iniciada. Desarrollado por CP Inmobiliaria.",
       "url": "https://www.cpinmobiliaria.com/#proyectos",
       "datePosted": "2025-01-01",
       "image": "https://www.cpinmobiliaria.com/assets/images/hero-night.jpg",
@@ -587,7 +620,7 @@
         "@type": "Apartment",
         "@id": "https://www.cpinmobiliaria.com/#garcia-bedoya-172",
         "name": "García Bedoya 172 — Departamentos en Miraflores",
-        "description": "Proyecto residencial boutique en La Aurora, Miraflores. 8 departamentos de 2 y 3 dormitorios con estudio, desde 118m². En preventa.",
+        "description": "Proyecto residencial boutique en La Aurora, Miraflores. 8 departamentos de 2 y 3 dormitorios con estudio, desde 118m². En preventa, con obra iniciada.",
         "url": "https://www.cpinmobiliaria.com/#proyectos",
         "image": "https://www.cpinmobiliaria.com/assets/images/hero-night.jpg",
         "address": { "@type": "PostalAddress", "streetAddress": "García Bedoya 172", "addressLocality": "Miraflores", "addressRegion": "Lima", "addressCountry": "PE" },
@@ -1497,6 +1530,15 @@
     });
 
     // ── Preventa modal ──
+    // ── Lead tracking (Meta Pixel + GA4) ──
+    // Envuelto en try/catch: el tracking nunca debe romper el envío del lead.
+    function trackLead(project, source) {
+      try {
+        if (window.fbq)  fbq('track', 'Lead', { content_name: project, content_category: source });
+        if (window.gtag) gtag('event', 'generate_lead', { project: project, source: source });
+      } catch (err) { /* no-op */ }
+    }
+
     function openPreventa() {
       const m = document.getElementById('preventa-modal');
       m.style.display = 'flex';
@@ -1537,6 +1579,8 @@
       document.getElementById('pv-wa-link').href = 'https://wa.me/51923270475?text=' + waText;
 
       window.open('https://drive.google.com/file/d/1Xy8GKLZfxLbX6A0IcxCQ3tInlxYb3Rl7/view', '_blank');
+
+      trackLead('Castilla 710', 'brochure');
 
       emailjs.send('service_azxbw4v', 'template_x5qubcj', params)
         .then(() => {})
@@ -1590,6 +1634,8 @@
       // Open brochure immediately (avoids popup blocking — happens in submit handler which is user-gesture context)
       window.open('https://drive.google.com/file/d/1AfC8lADIzmgzNY6_2B_RZcwYY3uarGwH/view', '_blank');
 
+      trackLead('García Bedoya 172', 'brochure');
+
       // Send lead data via emailjs
       emailjs.send('service_azxbw4v', 'template_x5qubcj', params)
         .then(() => {})
@@ -1614,6 +1660,8 @@
         proyecto: document.getElementById('proyecto').value,
         mensaje:  document.getElementById('mensaje').value,
       };
+
+      trackLead(params.proyecto || 'Contacto', 'contact_form');
 
       emailjs.send('service_azxbw4v', 'template_x5qubcj', params)
         .then(() => {
