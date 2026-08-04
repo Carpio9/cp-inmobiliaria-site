@@ -766,27 +766,28 @@
         <div>
           <div style="margin-bottom:1.5rem;padding:0 0.25rem;">
             <div class="section-label">Proyectos Actuales</div>
-            <h2 class="section-title" style="font-size:clamp(2.5rem,4vw,3.75rem);color:#fff;">En Preventa</h2>
+            <h2 class="section-title" style="font-size:clamp(2.5rem,4vw,3.75rem);color:#fff;">En Inicio de Obra</h2>
           </div>
           <div class="project-card" style="height:70vh;min-height:520px;">
           <img src="assets/images/hero-night.jpg"
                alt="García Bedoya 172 — render nocturno"
-               class="project-card-img" style="position:absolute;inset:0;" />
+               class="project-card-img" style="position:absolute;inset:0;" loading="lazy" />
           <div class="project-card-overlay"></div>
           <div class="project-card-content">
             <h3 class="project-name">García Bedoya 172 — Miraflores, Lima</h3>
             <div class="project-detail">
-              La Aurora, Miraflores<br /><br />
+              La Aurora, Miraflores<br />
+              Arquitectura Nómena<br /><br />
               8 departamentos boutique<br />
-              2 &amp; 3 dorm. + estudio<br />
-              Desde 118m²
+              2 &amp; 3 dorm. · 118–209 m²<br />
+              Certificación LEED
             </div>
-            <a href="https://drive.google.com/uc?export=download&id=10ats7_pujGvvDMG4msLY2XvnSVytf9_4" target="_blank" class="project-link">
+            <button onclick="openBedoyaBrochure()" class="project-link" style="background:none;cursor:pointer;">
               Ver brochure
               <svg width="14" height="8" viewBox="0 0 14 8" fill="none">
                 <path d="M1 4h12M9 1l4 3-4 3" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
               </svg>
-            </a>
+            </button>
           </div>
         </div>
         </div>
@@ -805,10 +806,10 @@
           <div class="project-card-content">
             <h3 class="project-name">Castilla 710 — Santiago de Surco, Lima</h3>
             <div class="project-detail">
-              Santiago de Surco<br /><br />
+              Santiago de Surco<br />
+              Jardín privado · Terrazas<br /><br />
               24 departamentos<br />
-              2 &amp; 3 dorm.<br />
-              Desde 56m²
+              1, 2 &amp; 3 dorm. · 56–158 m²
             </div>
             <button onclick="openPreventa()" class="project-link" style="background:none;cursor:pointer;">
               Acceder a la Preventa
@@ -892,6 +893,76 @@
                   color:rgba(255,255,255,0.5);line-height:1.8;">
           Te contactaremos en los próximos días para brindarte información detallada y acceso a precios de preventa antes del lanzamiento público.
         </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ MODAL BROCHURE BEDOYA ═══════════════════ -->
+  <div id="bedoya-modal" style="
+    display:none; position:fixed; inset:0; z-index:9999;
+    background:rgba(0,0,0,0.75); backdrop-filter:blur(6px);
+    align-items:center; justify-content:center; padding:1.5rem;">
+    <div style="
+      background:#0d0d0d; border:1px solid rgba(255,255,255,0.1);
+      max-width:500px; width:100%; padding:3rem 3rem 2.5rem;
+      position:relative;">
+      <button onclick="closeBedoyaBrochure()" style="
+        position:absolute; top:1.25rem; right:1.25rem;
+        background:none; border:none; cursor:pointer;
+        color:rgba(255,255,255,0.35); font-size:1.3rem; line-height:1;
+        transition:color 0.2s ease;"
+        onmouseover="this.style.color='rgba(255,255,255,0.8)'"
+        onmouseout="this.style.color='rgba(255,255,255,0.35)'">&#10005;</button>
+
+      <div id="bedoya-form-wrap">
+        <div style="font-family:'Inter',sans-serif;font-size:0.6rem;letter-spacing:0.28em;
+                    text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:1rem;">
+          García Bedoya 172 · Miraflores
+        </div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:2.1rem;
+                   color:#fff;line-height:1.05;letter-spacing:-0.01em;margin-bottom:0.6rem;">
+          Descarga el<br><em>Brochure.</em>
+        </h3>
+        <p style="font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:300;
+                  color:rgba(255,255,255,0.42);line-height:1.7;margin-bottom:2rem;">
+          Déjanos tus datos y accede al brochure completo de García Bedoya 172 con plantas, áreas y especificaciones.
+        </p>
+        <form onsubmit="handleBedoyaBrochure(event)" style="display:flex;flex-direction:column;gap:1.25rem;">
+          <div>
+            <label class="contact-label" for="bd-nombre">Nombre completo</label>
+            <input id="bd-nombre" type="text" class="contact-input" placeholder="Tu nombre" required autocomplete="name" />
+          </div>
+          <div>
+            <label class="contact-label" for="bd-telefono">Teléfono / WhatsApp</label>
+            <input id="bd-telefono" type="tel" class="contact-input" placeholder="+51 9XX XXX XXX" required autocomplete="tel" />
+          </div>
+          <div style="margin-top:0.25rem;">
+            <button id="bd-btn" type="submit" class="submit-btn" style="width:100%;">
+              Ver brochure
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div id="bedoya-success" style="display:none;text-align:center;padding:1.5rem 0;">
+        <div style="font-size:1.6rem;margin-bottom:1.25rem;opacity:0.7;">✓</div>
+        <h4 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.6rem;
+                   color:#fff;margin-bottom:1rem;line-height:1.2;">
+          Brochure abierto.
+        </h4>
+        <p style="font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:300;
+                  color:rgba(255,255,255,0.5);line-height:1.8;margin-bottom:1.75rem;">
+          El brochure se abrió en una nueva pestaña. ¿Tienes alguna pregunta?
+        </p>
+        <a id="bd-wa-link" href="https://wa.me/51922511584?text=Hola%2C%20acabo%20de%20ver%20el%20brochure%20de%20García%20Bedoya%20172.%20Me%20interesa%20saber%20más." target="_blank"
+           style="display:inline-block;font-family:'Inter',sans-serif;font-size:0.72rem;
+                  font-weight:500;letter-spacing:0.18em;text-transform:uppercase;
+                  color:#fff;border:1px solid rgba(255,255,255,0.25);padding:0.85rem 2rem;
+                  text-decoration:none;transition:background 0.25s ease,border-color 0.25s ease;"
+           onmouseover="this.style.background='rgba(255,255,255,0.07)';this.style.borderColor='rgba(255,255,255,0.5)'"
+           onmouseout="this.style.background='';this.style.borderColor='rgba(255,255,255,0.25)'">
+          Escribir por WhatsApp →
+        </a>
       </div>
     </div>
   </div>
@@ -980,9 +1051,9 @@
       </div>
 
       <div class="reveal" style="text-align:center;margin-top:3.5rem;">
-        <a href="https://drive.google.com/uc?export=download&id=10ats7_pujGvvDMG4msLY2XvnSVytf9_4" target="_blank" class="btn-outline">
+        <button onclick="openBedoyaBrochure()" class="btn-outline" style="background:none;cursor:pointer;">
           Descargar Brochure Bedoya
-        </a>
+        </button>
       </div>
 
     </div>
@@ -1283,6 +1354,21 @@
     </div>
   </section>
 
+  <!-- ═══════════════════ FLOATING WA BUTTON ═══════════════════ -->
+  <a href="https://wa.me/51923270475?text=Hola%2C%20me%20interesa%20conocer%20más%20sobre%20los%20proyectos%20de%20CP%20Inmobiliaria." target="_blank" rel="noopener noreferrer"
+     aria-label="Contáctanos por WhatsApp"
+     style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:8888;
+            width:52px;height:52px;border-radius:50%;background:#25d366;
+            display:flex;align-items:center;justify-content:center;
+            box-shadow:0 4px 20px rgba(37,211,102,0.35);
+            transition:transform 0.2s ease,box-shadow 0.2s ease;text-decoration:none;"
+     onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 28px rgba(37,211,102,0.5)'"
+     onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(37,211,102,0.35)'">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
   <!-- ═══════════════════ FOOTER ═══════════════════ -->
   <footer id="footer" style="padding:4rem 3rem 3rem;">
     <div style="max-width:1200px;margin:0 auto;">
@@ -1452,6 +1538,60 @@
           btn.textContent = 'Error al enviar. Intenta de nuevo.';
           btn.disabled = false;
         });
+    }
+
+    // ── Bedoya brochure modal ──
+    function openBedoyaBrochure() {
+      const m = document.getElementById('bedoya-modal');
+      m.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeBedoyaBrochure() {
+      const m = document.getElementById('bedoya-modal');
+      m.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    document.getElementById('bedoya-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeBedoyaBrochure();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeBedoyaBrochure();
+    });
+
+    function handleBedoyaBrochure(e) {
+      e.preventDefault();
+      const btn = document.getElementById('bd-btn');
+      btn.textContent = 'Abriendo...';
+      btn.disabled = true;
+
+      const nombre   = document.getElementById('bd-nombre').value;
+      const telefono = document.getElementById('bd-telefono').value;
+
+      const params = {
+        nombre:   nombre,
+        email:    '—',
+        telefono: telefono,
+        proyecto: 'García Bedoya 172 — Brochure',
+        mensaje:  'Descarga de brochure Bedoya',
+      };
+
+      // Personalize WA link with their name
+      const waText = encodeURIComponent(
+        'Hola ' + nombre + ', acabo de descargar el brochure de García Bedoya 172. ¿Tienes disponibilidad para contarme más?'
+      );
+      document.getElementById('bd-wa-link').href = 'https://wa.me/51922511584?text=' + waText;
+
+      // Open brochure immediately (avoids popup blocking — happens in submit handler which is user-gesture context)
+      window.open('https://drive.google.com/uc?export=download&id=10ats7_pujGvvDMG4msLY2XvnSVytf9_4', '_blank');
+
+      // Send lead data via emailjs
+      emailjs.send('service_azxbw4v', 'template_x5qubcj', params)
+        .then(() => {})
+        .catch(() => {});
+
+      // Show success state
+      document.getElementById('bedoya-form-wrap').style.display = 'none';
+      document.getElementById('bedoya-success').style.display = 'block';
     }
 
     // ── Contact form ──
