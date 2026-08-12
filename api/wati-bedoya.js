@@ -153,23 +153,28 @@ module.exports = async (req, res) => {
     return res.status(200).json({ skipped: "not-allowlisted", num });
   }
 
-  // Leer el contacto una vez (para pausa + estado del video)
+  // Leer el contacto una vez (pausa total + handoff + estado del video)
   const contact = await getContact(num);
-  // Conversación en manos de un humano: el bot NO interviene.
+  // Conversación 100% humana (contactos existentes): el bot NO interviene en nada.
   if (attrVal(contact, "bot_paused") === "true") {
     return res.status(200).json({ skipped: "paused", num });
   }
 
   const intent = matchIntent(text);
+  const handoff = attrVal(contact, "bot_handoff") === "true";
 
   try {
-    if (intent === "asesor") {
+    if (intent === "brochure" || intent === "precios" || intent === "avances") {
+      await sendContent(num, intent); // auto-servicio: funciona siempre, incluso tras pedir asesor
+    } else if (intent === "asesor") {
       await sendAsesor(num);
-      await setContactAttr(num, "bot_paused", "true"); // handoff → el bot se pausa, toma el humano
-    } else if (intent === "brochure" || intent === "precios" || intent === "avances") {
-      await sendContent(num, intent);
+      await setContactAttr(num, "bot_handoff", "true"); // pidió asesor: el bot deja de re-saludar
     } else {
-      // welcome | unknown → video una sola vez (primer contacto), luego la bienvenida
+      // welcome | unknown
+      if (handoff) {
+        return res.status(200).json({ skipped: "handoff-no-welcome", num }); // ya pidió asesor: no re-saludar
+      }
+      // primer contacto → video una sola vez, luego la bienvenida
       if (attrVal(contact, "bot_video_sent") !== "true") {
         await sendVideo(num);
         await setContactAttr(num, "bot_video_sent", "true");
