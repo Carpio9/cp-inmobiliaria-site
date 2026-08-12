@@ -38,7 +38,7 @@ const WELCOME = {
 
 const FOLLOWUP = {
   body: "¿Deseas algo más?",
-  buttons: [{ text: "Hablar con asesor" }, { text: "Ver menú" }],
+  buttons: [{ text: "Hablar con asesor" }, { text: "Ver opciones" }],
 };
 
 const CONTENT = {
