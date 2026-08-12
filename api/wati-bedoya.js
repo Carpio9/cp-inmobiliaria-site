@@ -25,8 +25,8 @@ const AVANCES_URL  = "https://www.cpinmobiliaria.com/docs/avances-bedoya-julio-2
 const VIDEO_URL    = "https://www.cpinmobiliaria.com/assets/videos/bedoya-172.mp4";
 
 const WELCOME = {
-  header: "García Bedoya 172",
-  body: "Hola. Gracias por escribirnos sobre García Bedoya 172, Miraflores.\n\nSoy el asistente de CP Inmobiliaria. ¿Qué te gustaría recibir?",
+  header: "CP Inmobiliaria",
+  body: "Hola. Gracias por escribirnos sobre García Bedoya 172, Miraflores.\n\nSoy el asistente virtual de CP Inmobiliaria. ¿Qué te gustaría recibir?",
   footer: "CP Inmobiliaria",
   buttonText: "Ver opciones",
   sections: [{ title: "Opciones", rows: [
