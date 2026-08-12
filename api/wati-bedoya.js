@@ -42,7 +42,7 @@ const FOLLOWUP = {
 };
 
 const CONTENT = {
-  brochure: "Aquí está el brochure completo de García Bedoya 172.\n\n8 residencias boutique en La Aurora, Miraflores.\nArquitectura Nómena · 118–209 m²\nCertificación LEED · Alianza Kave Home.\nActualmente en inicio de obra.\n\n" + BROCHURE_URL,
+  brochure: "Aquí está el brochure de García Bedoya 172:\n\n" + BROCHURE_URL,
   precios: "Aquí está la lista de precios actualizada de García Bedoya 172.\n\nAl estar en inicio de obra, estos son los precios más competitivos que tendrá el proyecto — se actualizan a medida que avanza la construcción.\n\n" + PRECIOS_URL,
   avances: "Esta es la presentación más reciente de avances de García Bedoya 172.\n\nEstamos en inicio de obra.\n\n" + AVANCES_URL,
   asesor: "Perfecto. Un asesor de CP Inmobiliaria se pondrá en contacto contigo en los próximos minutos.\n\nHorario de atención: lunes a sábado de 9am a 7pm.",

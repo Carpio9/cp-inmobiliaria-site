@@ -13,3 +13,4 @@ assets/brochures/castilla-brochure.pdf
 *.docx
 *.psd
 *.ai
+.vercel
