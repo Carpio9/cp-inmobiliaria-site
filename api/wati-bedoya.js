@@ -22,6 +22,7 @@ const ALLOWLIST = (process.env.BOT_ALLOWLIST || "")
 const BROCHURE_URL = "https://drive.google.com/file/d/1AfC8lADIzmgzNY6_2B_RZcwYY3uarGwH/view";
 const PRECIOS_URL  = "https://www.cpinmobiliaria.com/docs/lista-precios-bedoya.pdf";
 const AVANCES_URL  = "https://www.cpinmobiliaria.com/docs/avances-bedoya-julio-2026.pdf";
+const VIDEO_URL    = "https://www.cpinmobiliaria.com/assets/videos/bedoya-172.mp4";
 
 const WELCOME = {
   header: "García Bedoya 172",
@@ -72,6 +73,37 @@ const sendButtons = (num, btns) => watiPost("/api/v1/sendInteractiveButtonsMessa
 async function sendWelcome(num) { await sendList(num, WELCOME); }
 async function sendContent(num, key) { await sendText(num, CONTENT[key]); await sendList(num, FOLLOWUP); }
 async function sendAsesor(num)  { await sendText(num, CONTENT.asesor); } // handoff: queda en el inbox de WATI para un humano
+
+// Enviar video (descarga del sitio y sube a WATI por multipart)
+async function sendVideo(num) {
+  const r = await fetch(VIDEO_URL);
+  const buf = Buffer.from(await r.arrayBuffer());
+  const fd = new FormData();
+  fd.append("file", new Blob([buf], { type: "video/mp4" }), "bedoya-172.mp4");
+  await fetch(ENDPOINT + "/api/v1/sendSessionFile/" + num, {
+    method: "POST", headers: { Authorization: "Bearer " + TOKEN }, body: fd,
+  });
+}
+// Estado por contacto (para enviar el video una sola vez)
+async function getContactAttr(num, name) {
+  try {
+    const r = await fetch(ENDPOINT + "/api/v1/getContacts?pageSize=100&pageNumber=1",
+      { headers: { Authorization: "Bearer " + TOKEN } });
+    const j = await r.json();
+    const c = (j.contact_list || []).find(x => String(x.wAid) === String(num));
+    const p = ((c && c.customParams) || []).find(x => x.name === name);
+    return p ? p.value : null;
+  } catch (e) { return null; }
+}
+async function setContactAttr(num, name, value) {
+  try {
+    await fetch(ENDPOINT + "/api/v1/updateContactAttributes/" + num, {
+      method: "POST",
+      headers: { Authorization: "Bearer " + TOKEN, "Content-Type": "application/json" },
+      body: JSON.stringify({ customParams: [{ name, value }] }),
+    });
+  } catch (e) {}
+}
 
 // ── Reconocimiento de intención (lista/botón/texto libre) ──
 function matchIntent(raw) {
@@ -124,10 +156,19 @@ module.exports = async (req, res) => {
   }
 
   try {
-    if (intent === "asesor")                         await sendAsesor(num);
-    else if (intent === "brochure" || intent === "precios" || intent === "avances")
-                                                     await sendContent(num, intent);
-    else                                             await sendWelcome(num); // welcome | unknown
+    if (intent === "asesor") {
+      await sendAsesor(num);
+    } else if (intent === "brochure" || intent === "precios" || intent === "avances") {
+      await sendContent(num, intent);
+    } else {
+      // welcome | unknown → video una sola vez (primer contacto), luego la bienvenida
+      const seen = await getContactAttr(num, "bot_video_sent");
+      if (seen !== "true") {
+        await sendVideo(num);
+        await setContactAttr(num, "bot_video_sent", "true");
+      }
+      await sendWelcome(num);
+    }
     return res.status(200).json({ ok: true, intent, num });
   } catch (e) {
     return res.status(200).json({ ok: false, error: String(e).slice(0, 200) });
