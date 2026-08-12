@@ -38,7 +38,14 @@ const WELCOME = {
 
 const FOLLOWUP = {
   body: "¿Deseas algo más?",
-  buttons: [{ text: "Hablar con asesor" }, { text: "Ver opciones" }],
+  footer: "CP Inmobiliaria",
+  buttonText: "Ver opciones",
+  sections: [{ title: "Opciones", rows: [
+    { title: "Hablar con asesor" },
+    { title: "Brochure" },
+    { title: "Lista de precios" },
+    { title: "Avances de obra" },
+  ]}],
 };
 
 const CONTENT = {
@@ -63,7 +70,7 @@ const sendList    = (num, list) => watiPost("/api/v1/sendInteractiveListMessage"
 const sendButtons = (num, btns) => watiPost("/api/v1/sendInteractiveButtonsMessage", { query: { whatsappNumber: num }, json: btns });
 
 async function sendWelcome(num) { await sendList(num, WELCOME); }
-async function sendContent(num, key) { await sendText(num, CONTENT[key]); await sendButtons(num, FOLLOWUP); }
+async function sendContent(num, key) { await sendText(num, CONTENT[key]); await sendList(num, FOLLOWUP); }
 async function sendAsesor(num)  { await sendText(num, CONTENT.asesor); } // handoff: queda en el inbox de WATI para un humano
 
 // ── Reconocimiento de intención (lista/botón/texto libre) ──
