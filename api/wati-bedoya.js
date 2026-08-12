@@ -85,15 +85,17 @@ async function sendVideo(num) {
   });
 }
 // Estado por contacto (para enviar el video una sola vez)
-async function getContactAttr(num, name) {
+async function getContact(num) {
   try {
     const r = await fetch(ENDPOINT + "/api/v1/getContacts?pageSize=100&pageNumber=1",
       { headers: { Authorization: "Bearer " + TOKEN } });
     const j = await r.json();
-    const c = (j.contact_list || []).find(x => String(x.wAid) === String(num));
-    const p = ((c && c.customParams) || []).find(x => x.name === name);
-    return p ? p.value : null;
+    return (j.contact_list || []).find(x => String(x.wAid) === String(num)) || null;
   } catch (e) { return null; }
+}
+function attrVal(contact, name) {
+  const p = ((contact && contact.customParams) || []).find(x => x.name === name);
+  return p ? p.value : null;
 }
 async function setContactAttr(num, name, value) {
   try {
@@ -140,30 +142,35 @@ module.exports = async (req, res) => {
 
   const { num, text, eventType, owner } = parseEvent(body);
 
-  // Solo mensajes ENTRANTES del cliente (owner === false). Ignora salientes/otros eventos.
+  // Solo mensajes ENTRANTES del cliente CON contenido.
   if (owner === true || owner === "true") return res.status(200).json({ skipped: "outbound" });
   if (!num) return res.status(200).json({ skipped: "no-number" });
+  // Ignorar eventos sin texto (avisos de estado/entrega, etc.) — evita respuestas espurias.
+  if (!String(text || "").trim()) return res.status(200).json({ skipped: "empty-event" });
 
   // Guardrail modo prueba: solo números en la allowlist
   if (TEST_MODE && !ALLOWLIST.includes(String(num))) {
     return res.status(200).json({ skipped: "not-allowlisted", num });
   }
 
-  const intent = matchIntent(text);
-
-  if (DEBUG) {
-    await sendText(num, `DEBUG · text="${String(text).slice(0,40)}" · intent=${intent} · event=${eventType}`);
+  // Leer el contacto una vez (para pausa + estado del video)
+  const contact = await getContact(num);
+  // Conversación en manos de un humano: el bot NO interviene.
+  if (attrVal(contact, "bot_paused") === "true") {
+    return res.status(200).json({ skipped: "paused", num });
   }
+
+  const intent = matchIntent(text);
 
   try {
     if (intent === "asesor") {
       await sendAsesor(num);
+      await setContactAttr(num, "bot_paused", "true"); // handoff → el bot se pausa, toma el humano
     } else if (intent === "brochure" || intent === "precios" || intent === "avances") {
       await sendContent(num, intent);
     } else {
       // welcome | unknown → video una sola vez (primer contacto), luego la bienvenida
-      const seen = await getContactAttr(num, "bot_video_sent");
-      if (seen !== "true") {
+      if (attrVal(contact, "bot_video_sent") !== "true") {
         await sendVideo(num);
         await setContactAttr(num, "bot_video_sent", "true");
       }
