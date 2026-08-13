@@ -54,6 +54,7 @@ const CONTENT = {
   precios: "Aquí está la lista de precios actualizada de García Bedoya 172.\n\nAl estar en inicio de obra, estos son los precios más competitivos que tendrá el proyecto — se actualizan a medida que avanza la construcción.\n\n" + PRECIOS_URL,
   avances: "Esta es la presentación más reciente de avances de García Bedoya 172.\n\nEstamos en inicio de obra.\n\n" + AVANCES_URL,
   asesor: "Perfecto. Un asesor de CP Inmobiliaria se pondrá en contacto contigo a la brevedad.",
+  closing: "Gracias por contactarnos. No dudes en escribirnos nuevamente ante cualquier duda o consulta. Que tengas un excelente día.",
 };
 
 // ── Helpers de la API de WATI ──
@@ -111,11 +112,14 @@ async function setContactAttr(num, name, value) {
 function matchIntent(raw) {
   const t = (raw || "").toLowerCase().trim();
   if (!t) return "welcome";
-  if (/\b(menú|menu|inicio|opciones|volver|hola|buenas|informaci[oó]n|info|empezar|start)\b/.test(t)) return "welcome";
   if (t.includes("brochure") || t.includes("folleto")) return "brochure";
   if (t.includes("precio")) return "precios";
   if (t.includes("avance") || t.includes("obra")) return "avances";
   if (t.includes("asesor") || t.includes("contact") || t.includes("llam") || t.includes("hablar") || t.includes("vendedor")) return "asesor";
+  if (/\b(menú|menu|inicio|opciones|volver|hola|buenas|informaci[oó]n|info|empezar|start)\b/.test(t)) return "welcome";
+  // Despedida / agradecimiento tras el flujo → cierre profesional (no re-saludar)
+  if (t.includes("gracias") || /(eso es todo|es todo|nada m[aá]s|est[aá] bien|ya est[aá])/.test(t) ||
+      ["no", "no gracias", "listo", "ok", "okay", "perfecto", "ya"].includes(t)) return "closing";
   return "unknown";
 }
 
@@ -176,6 +180,8 @@ module.exports = async (req, res) => {
     } else if (intent === "asesor") {
       await sendAsesor(num);
       await setContactAttr(num, "bot_handoff", "true"); // pidió asesor: el bot deja de re-saludar
+    } else if (intent === "closing") {
+      if (!handoff) await sendText(num, CONTENT.closing); // despedida; tras handoff, deja al humano
     } else {
       // welcome | unknown
       if (handoff) {
