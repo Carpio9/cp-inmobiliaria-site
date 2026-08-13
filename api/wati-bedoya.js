@@ -124,13 +124,14 @@ function parseEvent(b) {
   b = b || {};
   const num = b.waId || b.wAid || b.whatsappNumber ||
               (b.contact && (b.contact.wAid || b.contact.waId)) || null;
+  const id = b.id || b.whatsappMessageId || b.messageId || b.eventId || null; // para dedup de reintentos
   const text =
     (b.listReply && b.listReply.title) ||
     (b.interactiveButtonReply && b.interactiveButtonReply.text) ||
     (b.buttonReply && (b.buttonReply.text || b.buttonReply.title)) ||
     b.text || "";
   const eventType = b.eventType || b.type || "";
-  return { num, text, eventType, owner: b.owner };
+  return { num, text, eventType, owner: b.owner, id };
 }
 
 module.exports = async (req, res) => {
@@ -139,8 +140,9 @@ module.exports = async (req, res) => {
 
   let body = req.body;
   if (typeof body === "string") { try { body = JSON.parse(body); } catch (e) { body = {}; } }
+  try { console.log("WH", JSON.stringify(body).slice(0, 700)); } catch (e) {} // TEMP: inspeccionar payload real
 
-  const { num, text, eventType, owner } = parseEvent(body);
+  const { num, text, eventType, owner, id: msgId } = parseEvent(body);
 
   // Solo mensajes ENTRANTES del cliente CON contenido.
   if (owner === true || owner === "true") return res.status(200).json({ skipped: "outbound" });
@@ -159,6 +161,11 @@ module.exports = async (req, res) => {
   if (attrVal(contact, "bot_paused") === "true") {
     return res.status(200).json({ skipped: "paused", num });
   }
+  // Dedup: ignora reintentos del webhook (mismo mensaje) para no duplicar respuestas
+  if (msgId && attrVal(contact, "last_msg") === String(msgId)) {
+    return res.status(200).json({ skipped: "duplicate", num });
+  }
+  if (msgId) await setContactAttr(num, "last_msg", String(msgId));
 
   const intent = matchIntent(text);
   const handoff = attrVal(contact, "bot_handoff") === "true";
