@@ -26,7 +26,7 @@ const VIDEO_URL    = "https://www.cpinmobiliaria.com/assets/videos/bedoya-172.mp
 
 const WELCOME = {
   header: "CP Inmobiliaria",
-  body: "Hola. Gracias por escribirnos sobre García Bedoya 172, Miraflores.\n\nSoy el asistente virtual de CP Inmobiliaria. ¿Qué te gustaría recibir?",
+  body: "Hola. Gracias por escribirnos sobre García Bedoya 172, Miraflores.\n\nSoy el asistente virtual de CP Inmobiliaria. ¿Qué le gustaría recibir?",
   footer: "CP Inmobiliaria",
   buttonText: "Ver opciones",
   sections: [{ title: "Opciones", rows: [
@@ -38,7 +38,7 @@ const WELCOME = {
 };
 
 const FOLLOWUP = {
-  body: "¿Deseas algo más?",
+  body: "¿Desea algo más?",
   footer: "CP Inmobiliaria",
   buttonText: "Ver opciones",
   sections: [{ title: "Opciones", rows: [
@@ -53,8 +53,8 @@ const CONTENT = {
   brochure: "Aquí está el brochure de García Bedoya 172:\n\n" + BROCHURE_URL,
   precios: "Aquí está la lista de precios actualizada de García Bedoya 172.\n\nAl estar en inicio de obra, estos son los precios más competitivos que tendrá el proyecto — se actualizan a medida que avanza la construcción.\n\n" + PRECIOS_URL,
   avances: "Esta es la presentación más reciente de avances de García Bedoya 172.\n\nEstamos en inicio de obra.\n\n" + AVANCES_URL,
-  asesor: "Perfecto. Un asesor de CP Inmobiliaria se pondrá en contacto contigo a la brevedad.",
-  closing: "Gracias por contactarnos. No dudes en escribirnos nuevamente ante cualquier duda o consulta. Que tengas un excelente día.",
+  asesor: "Perfecto. Un asesor de CP Inmobiliaria se pondrá en contacto con usted a la brevedad.",
+  closing: "Gracias por contactarnos. No dude en escribirnos nuevamente ante cualquier duda o consulta. Que tenga un excelente día.",
 };
 
 // ── Helpers de la API de WATI ──
